@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 17:26:44 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:39:33 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 
 int	launch_fractol(int request)
 {
+	t_fract	f;
+
+	f.mlx = mlx_init();
+	if (initialize_graphic(&f) == -1)
+		return (-1);
 	if (request == MANDELBROT)
 	{
 		printf("Run Mandelbrot.\n");
@@ -32,6 +37,8 @@ int	launch_fractol(int request)
 	}
 	else
 		return (-1);
+	mlx_key_hook(f.win, keypress, &f);
+	mlx_loop(f.mlx);
 	return (0);
 }
 
