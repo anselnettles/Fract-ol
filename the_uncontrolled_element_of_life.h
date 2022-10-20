@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 15:23:21 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:34:42 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdlib.h>			// Standard library. ('size_t', 'NULL', 'exit')
 //# include <string.h>			// String library.
 //# include <math.h>			// Math library. 
+
+# define MANDELBROT 1
+# define JULIA 2
+# define TRICORN 3
+
+//	Terminal output colors.
 
 # define T_GREY "\033[0;37m"	// Grey terminal color.
 # define T_OG "\033[1;33m"		// Orange bold terminal color.
