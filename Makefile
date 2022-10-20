@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/10/20 16:10:36 by aviholai         ###   ########.fr        #
+#    Updated: 2022/10/20 18:22:33 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME			= fractol
 
 SRC				= \
 				main.c \
+				mlx_control.c\
 				utility.c
 
 OBJ				= $(SRC:.c=.o)
