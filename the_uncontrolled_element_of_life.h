@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 18:36:37 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:00:55 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@
 # define TRICORN 3				// Reference to running Tricorn.
 
 // Graphic window definitions.
-# define WIDTH 1080				// Window resolution width
-# define HEIGHT 920				// Window resolution height
+# define WIDTH 640				// Window resolution width
+# define HEIGHT 480				// Window resolution height
 
-// Mac keyboard control definitions.
+// Mac keyboard and mouse control definitions.
 # define TAB 48					// Mac TAB key.
 # define ESC 53					// Mac ESC key.
+# define ZOOM_IN 4				// Mouse scroll in.
+# define ZOOM_OUT 5				// Mouse scroll out.
 
 // Terminal output colors.
 # define T_GREY "\033[0;37m"	// Grey terminal color.
@@ -54,12 +56,19 @@
 typedef struct s_fract {
 	void	*mlx;
 	void	*win;
+	float	xside;
+	float	yside;
+	float	left;
+	float	top;
+	float		increment;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
 int		launch_fractol(int request);	// Runs the request to graphic view.
 int		initialize_graphic(t_fract *f);	// Graphic window initialization.
+void	mandelbrot(t_fract *f);			// The Mandelbrot set.
 int		keypress(int key, void *param);	// Graphic window keyboard controls.
+int		mousepress(int key, int x, int y, void *param);	// Mouse zoom controls.
 size_t	ft_strlen(const char *s);		// Measure string length.
 int		f_ai(const char *str);			// 'AtoI', ASCII to integer.
 #endif
