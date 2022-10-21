@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 18:37:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:59:02 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	keypress(int key, void *param)
 
 int	initialize_graphic(t_fract *f)
 {
+	f->mlx = mlx_init();
 	f->win = mlx_new_window(f->mlx, WIDTH, HEIGHT,
 			"Fract'ol | github.com/anselnettles");
 	mlx_string_put(f->mlx, f->win, 30, 20, NETTLE,

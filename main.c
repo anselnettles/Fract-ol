@@ -6,12 +6,46 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 18:39:33 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:01:16 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "the_uncontrolled_element_of_life.h"
 #include <stdio.h>
+
+#define MAXCOUNT 30
+
+
+void	mandelbrot(float left, float top, float xside, float yside, t_fract *f)
+{
+	float	xscale, yscale, zx, zy, cx, tempx, cy;
+	int		x;
+	int		y;
+	int		count;
+	
+	xscale = xside / WIDTH;
+	yscale = yside / HEIGHT;
+	
+	for (y = 1; y <= HEIGHT - 1; y++)
+	{
+		for (x = 1; x <= WIDTH - 1; x++)
+		{
+			cx = x * xscale + left;
+			cy = y * yscale + top;
+			zx = 0;
+			zy = 0;
+			count = 0;
+			while ((zx * zx + zy * zy < 4) && (count < MAXCOUNT))
+			{
+				tempx = zx * zx - zy * zy + cx;
+				zy = 2 * zx * zy + cy;
+				zx = tempx;
+				count += 1;
+			}
+			mlx_pixel_put(f->mlx, f->win, x, y, count * 10);
+		}
+	}
+}
 
 // Checks the parameter request from the user and moves on to the corresponding
 // fractal function.
@@ -20,11 +54,16 @@ int	launch_fractol(int request)
 {
 	t_fract	f;
 
-	f.mlx = mlx_init();
 	if (initialize_graphic(&f) == -1)
 		return (-1);
 	if (request == MANDELBROT)
 	{
+		float left, top, xside, yside;
+		left = -1.75;
+		top = -0.25;
+		xside = (float)0.25;
+		yside = (float)0.45;
+		mandelbrot(left, top, xside, yside, &f);
 		printf("Run Mandelbrot.\n");
 	}
 	else if (request == JULIA)
