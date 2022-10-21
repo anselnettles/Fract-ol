@@ -6,32 +6,30 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/21 16:01:16 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:53:09 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "the_uncontrolled_element_of_life.h"
-#include <stdio.h>
-
 #define MAXCOUNT 30
 
-
-void	mandelbrot(float left, float top, float xside, float yside, t_fract *f)
+void	mandelbrot(t_fract *f)
 {
 	float	xscale, yscale, zx, zy, cx, tempx, cy;
 	int		x;
 	int		y;
 	int		count;
-	
-	xscale = xside / WIDTH;
-	yscale = yside / HEIGHT;
-	
-	for (y = 1; y <= HEIGHT - 1; y++)
+
+	xscale = f->xside / WIDTH;
+	yscale = f->yside / HEIGHT;
+	y = 1;
+	while (y <= HEIGHT - 1)
 	{
-		for (x = 1; x <= WIDTH - 1; x++)
+		x = 1;
+		while (x <= WIDTH - 1)
 		{
-			cx = x * xscale + left;
-			cy = y * yscale + top;
+			cx = (x * xscale + f->left) * f->increment;
+			cy = (y * yscale + f->top) * f->increment;
 			zx = 0;
 			zy = 0;
 			count = 0;
@@ -43,7 +41,9 @@ void	mandelbrot(float left, float top, float xside, float yside, t_fract *f)
 				count += 1;
 			}
 			mlx_pixel_put(f->mlx, f->win, x, y, count * 10);
+			x++;
 		}
+		y++;
 	}
 }
 
@@ -58,24 +58,24 @@ int	launch_fractol(int request)
 		return (-1);
 	if (request == MANDELBROT)
 	{
-		float left, top, xside, yside;
-		left = -1.75;
-		top = -0.25;
-		xside = (float)0.25;
-		yside = (float)0.45;
-		mandelbrot(left, top, xside, yside, &f);
-		printf("Run Mandelbrot.\n");
+		f.left = (float)-1.75;
+		f.top = (float)-0.25;
+		f.xside = (float)0.25;
+		f.yside = (float)0.45;
+		f.increment = 1;
+		mandelbrot(&f);
 	}
 	else if (request == JULIA)
 	{
-		printf("Run Julia.\n");
+		//Julia.;
 	}
 	else if (request == TRICORN)
 	{
-		printf("Run Tricorn.\n");
+		//Tricorn.;
 	}
 	else
 		return (-1);
+	mlx_mouse_hook(f.win, mousepress, &f);
 	mlx_key_hook(f.win, keypress, &f);
 	mlx_loop(f.mlx);
 	return (0);
