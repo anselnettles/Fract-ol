@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/21 18:00:55 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 19:42:19 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_fract {
 	float	left;
 	float	top;
 	float		increment;
+	float		increment2;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.

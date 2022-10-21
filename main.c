@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/21 17:53:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 19:42:04 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	mandelbrot(t_fract *f)
 		x = 1;
 		while (x <= WIDTH - 1)
 		{
-			cx = (x * xscale + f->left) * f->increment;
+			cx = (x * xscale + f->left) * f->increment2;
 			cy = (y * yscale + f->top) * f->increment;
 			zx = 0;
 			zy = 0;
@@ -63,6 +63,7 @@ int	launch_fractol(int request)
 		f.xside = (float)0.25;
 		f.yside = (float)0.45;
 		f.increment = 1;
+		f.increment2 = 1;
 		mandelbrot(&f);
 	}
 	else if (request == JULIA)

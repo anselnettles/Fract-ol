@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/21 17:57:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/21 19:43:37 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	mousepress(int key, int x, int y, void *param)
 	if (key == ZOOM_IN)
 	{
 		printf("in. %f. ", f->increment);
-		f->increment -= (float)0.05;
+		f->increment -= (float)0.01;
+		f->increment2 -= (float)0.001;
 		//f->xside += (float)0.25;
 		//f->yside += (float)0.45;
 		//f->left -= (float)1.75;
@@ -32,7 +33,8 @@ int	mousepress(int key, int x, int y, void *param)
 	if (key == ZOOM_OUT)
 	{
 		printf("out. %f. ", f->increment);
-		f->increment += (float)0.05;
+		f->increment += (float)0.01;
+		f->increment2 += (float)0.001;
 		//f->xside -= (float)0.25;
 		//f->yside -= (float)0.45;
 	}
