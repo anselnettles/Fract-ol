@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/21 19:42:19 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:26:45 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,25 @@
 # define GREY 0x828282			// Graphic grey color.
 
 typedef struct s_fract {
+	int		request;
+	int		usage_lines;
 	void	*mlx;
 	void	*win;
 	float	xside;
 	float	yside;
 	float	left;
 	float	top;
-	float		increment;
-	float		increment2;
+	float	increment;
+	float	increment2;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
-int		launch_fractol(int request);	// Runs the request to graphic view.
+int		launch_fractol(t_fract *f);	// Runs the request to graphic view.
 int		initialize_graphic(t_fract *f);	// Graphic window initialization.
 void	mandelbrot(t_fract *f);			// The Mandelbrot set.
+void	tricorn(t_fract *f);
 int		keypress(int key, void *param);	// Graphic window keyboard controls.
 int		mousepress(int key, int x, int y, void *param);	// Mouse zoom controls.
 size_t	ft_strlen(const char *s);		// Measure string length.
-int		f_ai(const char *str);			// 'AtoI', ASCII to integer.
+int		ft_atoi(const char *str);		// 'AtoI', ASCII to integer.
 #endif
