@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:07:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/20 15:19:09 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:59:30 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-//	'AI()' (AtoI / ASCII to integer) converts the applied character number
+//	'Ft_AtoI()' (AtoI / ASCII to integer) converts the applied character number
 //	string into an integer value.
 //	When it comes to overly long number strings, for the function to behave the
 //	same way as the original 'atoi()', we have defined a number maximum.
@@ -43,7 +43,7 @@ size_t	ft_strlen(const char *s)
 //	The result is then returned after being factored with the integer
 //	of 'if_negative'.
 
-int	f_ai(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned long long	result;
 	int					if_negative;
