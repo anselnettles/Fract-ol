@@ -6,28 +6,29 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 13:51:49 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:32:22 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "the_uncontrolled_element_of_life.h"
 #define MAXCOUNT 30
 
-float scale(int value, float new_min, float new_max, float old_max)
+float scale(int value, float n_min, float n_max, float o_max)
 {
-	float old_min;
+	float o_min;
 
-	old_min = 0;
+	o_min = 0;
 
-	return ((new_max - new_min) * (value - old_min) / (old_max - old_min) + new_min);
+	return ((n_max - n_min) * (value - o_min) / (o_max - o_min) + n_min);
 }
 
-// 'Mandelbrot()' function can run either the Mandelbrot set fractal, made
-// famous by Benoit Mandelbrot, working for IBM, in 1980, as well as the
-// Tricorn fractal, sometimes called the Mandelbar set, as introduced by
-// W.D. Crowe, R.Hasson, P.J. Rippon and P.E.D. Strain-Clark, in 1989.
+// 'Draw_fractal()' function can run either the Mandelbrot set fractal, made
+// famous by Benoit Mandelbrot, working for IBM, in 1980, the Tricorn fractal,
+// sometimes called the Mandelbar set, as introduced by
+// W.D. Crowe, R.Hasson, P.J. Rippon and P.E.D. Strain-Clark, in 1989, as well
+// as the Julia set fractal, named after the French mathematician Gaston Julia.
 
-void	mandelbrot(t_fract *f)
+void	draw_fractal(t_fract *f)
 {
 	float	xscale, yscale, zx, zy, cx, tempx, cy;
 	int		x;
@@ -35,64 +36,69 @@ void	mandelbrot(t_fract *f)
 	int		count;
 	int		fractal_toggle;
 
-	xscale = f->xside / WIDTH;
-	yscale = f->yside / HEIGHT;
+	xscale = f->xside / WINDOW;
+	yscale = f->yside / WINDOW;
 	y = 1;
-	if (f->request == 1)
-		fractal_toggle = 1;
+	if (f->request == TRICORN)
+		fractal_toggle = -2;
 	else
-		fractal_toggle = -1;
-	while (y <= HEIGHT - 1)
+		fractal_toggle = 2;
+	while (y <= WINDOW - 1)
 	{
 		x = 1;
-		while (x <= WIDTH - 1)
+		while (x <= WINDOW - 1)
 		{
-			cx = scale(x, -2, 2, WIDTH) * f->cx_increment + (float)0.38662;
-			cy = scale(y, -2, 2, HEIGHT) * f->cy_increment + (float)0.28;
-			zx = 0;
-			zy = 0;
+			cx = scale(x, -2, 2, WINDOW) * f->increment;
+			cy = scale(y, -2, 2, WINDOW) * f->increment;
+			if (f->request == JULIA)
+			{
+				zx = cx;
+				zy = cy;
+				cx = f->cursor_x;
+				cy = f->cursor_y;
+			}
+			else
+			{
+				cx += f->cursor_x;
+				cy += f->cursor_y;
+				zx = 0;
+				zy = 0;
+			}
 			count = 0;
 			while ((zx * zx + zy * zy < 4) && (count < MAXCOUNT))
 			{
 				tempx = zx * zx - zy * zy + cx;
-				zy = (2 * fractal_toggle) * zx * zy + cy;
+				zy = fractal_toggle * zx * zy + cy;
 				zx = tempx;
 				count += 1;
 			}
-			mlx_pixel_put(f->mlx, f->win, x, y, ((count * 5) << 8) | (count * 7) << 16);
+			mlx_pixel_put(f->mlx, f->win, x, y, ((count * 10) << 16 | (count * 8) << 7 | (count * 4) << 4));
 			x++;
 		}
 		y++;
 	}
 }
 
-// 'Launch_fractol()' is a three-way fork that initializes the 'MLX' library
-// and runs the requested fractal.
-// Checks the parameter request from the user and moves on to the corresponding
-// fractal function.
+// 'Launch_fractol()' initializes the 'MLX' library among its controls and
+// appoints variables for the fractol sets.
+// The mouse motion control, 'motion()', moves the graphical view and calls
+// the 'draw_fractal()' function.
 
 int	launch_fractol(t_fract *f)
 {
 	if (initialize_graphic(f) == -1)
 		return (-1);
-	if (f->request == MANDELBROT || f->request ==  TRICORN)
-	{
-		f->left = (float)-1.75;
-		f->top = (float)-0.25;
-		f->xside = (float)0.25;
-		f->yside = (float)0.45;
-		f->cx_increment = 1;
-		f->cy_increment = 1;
-		mandelbrot(f);
-	}
-	else if (f->request == JULIA)
-	{
-		//Julia.;
-	}
-	else
+	f->left = (float)-1.75;
+	f->top = (float)-0.25;
+	f->xside = (float)0.25;
+	f->yside = (float)0.45;
+	f->increment = 1;
+	if (mlx_hook(f->win, 6, 1L << 6, motion, (void *)f) == -1)
 		return (-1);
-	mlx_mouse_hook(f->win, mousepress, f);
-	mlx_key_hook(f->win, keypress, f);
+	if (mlx_mouse_hook(f->win, mousepress, f) == -1)
+		return (-1);
+	if (mlx_key_hook(f->win, keypress, f) == -1)
+		return (-1);
 	mlx_loop(f->mlx);
 	return (0);
 }
