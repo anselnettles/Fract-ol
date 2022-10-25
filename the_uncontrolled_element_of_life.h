@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 13:32:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:25:39 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 # include <unistd.h>			// UNIX Standard library. ('write()')
 # include <stdlib.h>			// Standard library. ('size_t', 'NULL', 'exit')
-//# include <string.h>			// String library.
-//# include <math.h>			// Math library. 
 # include "mlx.h"				// MiniLibraryX graphics library.
 
 // Terminal definitions.
@@ -28,8 +26,7 @@
 # define TRICORN 3				// Reference to running Tricorn.
 
 // Graphic window definitions.
-# define WIDTH 640				// Window resolution width
-# define HEIGHT 640				// Window resolution height
+# define WINDOW 920				// Window resolution width
 
 // Mac keyboard and mouse control definitions.
 # define TAB 48					// Mac TAB key.
@@ -62,17 +59,20 @@ typedef struct s_fract {
 	float	yside;
 	float	left;
 	float	top;
-	float	cx_increment;
-	float	cy_increment;
+	float	increment;
+	float	cursor_x;
+	float	cursor_y;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
-int		launch_fractol(t_fract *f);	// Runs the request to graphic view.
+int		launch_fractol(t_fract *f);		// Runs the request to graphic view.
 int		initialize_graphic(t_fract *f);	// Graphic window initialization.
-void	mandelbrot(t_fract *f);			// The Mandelbrot set.
-void	tricorn(t_fract *f);
+void	draw_fractal(t_fract *f);		// Draws the fractal requested.
+void	write_strings(t_fract *f);		// Writes tool tips on the window.
 int		keypress(int key, void *param);	// Graphic window keyboard controls.
-int		mousepress(int key, int x, int y, void *param);	// Mouse zoom controls.
-size_t	ft_strlen(const char *s);		// Measure string length.
-int		ft_atoi(const char *str);		// 'AtoI', ASCII to integer.
+int		mousepress(int key, int x, int y, void *param);	// Mouse zoom control.
+int		motion(int x, int y, void *param);				// Mouse motion control.
+float	scale(int value, float new_min, float new_max, float old_max);
+size_t	ft_strlen(const char *s);		// Measures applied string length.
+int		ft_atoi(const char *str);		// 'AtoI', ASCII to integer converter.
 #endif
