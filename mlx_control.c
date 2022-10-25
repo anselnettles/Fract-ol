@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/24 17:48:32 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:21:48 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	mousepress(int key, int x, int y, void *param)
 		return (0);
 	if (key == ZOOM_IN)
 	{
-		printf("in. %f. ", f->increment);
-		f->increment -= (float)0.002;
-		f->increment2 -= (float)0.015;
+		printf("in. %f. ", f->cx_increment);
+		f->cx_increment /= (float)0.1;
+		f->cy_increment /= (float)0.1;
 	}
 	if (key == ZOOM_OUT)
 	{
-		printf("out. %f. ", f->increment);
-		f->increment += (float)0.01;
-		f->increment2 += (float)0.001;
+		printf("out. %f. ", f->cx_increment);
+		f->cx_increment *= (float)0.1;
+		f->cy_increment *= (float)0.1;
 	}
 	mlx_clear_window(f->mlx, f->win);
 	if (f->request == 1 || f->request == 3)
