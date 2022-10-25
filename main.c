@@ -6,20 +6,32 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 17:32:22 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:26:56 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "the_uncontrolled_element_of_life.h"
-#define MAXCOUNT 30
+#define MAX 30
 
-float scale(int value, float n_min, float n_max, float o_max)
+// For the sake of reading clarity, the variables during 'draw_fractal()'
+// that have an adjust for the user request are set here.
+
+void	request_adjust(t_fract *f)
 {
-	float o_min;
-
-	o_min = 0;
-
-	return ((n_max - n_min) * (value - o_min) / (o_max - o_min) + n_min);
+	if (f->request == JULIA)
+	{
+		f->z_x = f->c_x;
+		f->z_y = f->c_y;
+		f->c_x = f->mouse_x;
+		f->c_y = f->mouse_y;
+	}
+	else if (f->request == MANDELBROT || f->request == TRICORN)
+	{
+		f->c_x += f->mouse_x;
+		f->c_y += f->mouse_y;
+		f->z_x = 0;
+		f->z_y = 0;
+	}
 }
 
 // 'Draw_fractal()' function can run either the Mandelbrot set fractal, made
@@ -30,52 +42,27 @@ float scale(int value, float n_min, float n_max, float o_max)
 
 void	draw_fractal(t_fract *f)
 {
-	float	xscale, yscale, zx, zy, cx, tempx, cy;
-	int		x;
-	int		y;
-	int		count;
-	int		fractal_toggle;
-
-	xscale = f->xside / WINDOW;
-	yscale = f->yside / WINDOW;
-	y = 1;
-	if (f->request == TRICORN)
-		fractal_toggle = -2;
-	else
-		fractal_toggle = 2;
-	while (y <= WINDOW - 1)
+	f->y = 1;
+	while (f->y <= WINDOW - 1)
 	{
-		x = 1;
-		while (x <= WINDOW - 1)
+		f->x = 1;
+		while (f->x <= WINDOW - 1)
 		{
-			cx = scale(x, -2, 2, WINDOW) * f->increment;
-			cy = scale(y, -2, 2, WINDOW) * f->increment;
-			if (f->request == JULIA)
+			f->c_x = scale(f->x, -2, 2, WINDOW) * f->increment;
+			f->c_y = scale(f->y, -2, 2, WINDOW) * f->increment;
+			request_adjust(f);
+			f->count = 0;
+			while ((f->z_x * f->z_x + f->z_y * f->z_y < 4) && (f->count < MAX))
 			{
-				zx = cx;
-				zy = cy;
-				cx = f->cursor_x;
-				cy = f->cursor_y;
+				f->temporary_x = f->z_x * f->z_x - f->z_y * f->z_y + f->c_x;
+				f->z_y = f->fractal_toggle * f->z_x * f->z_y + f->c_y;
+				f->z_x = f->temporary_x;
+				f->count += 1;
 			}
-			else
-			{
-				cx += f->cursor_x;
-				cy += f->cursor_y;
-				zx = 0;
-				zy = 0;
-			}
-			count = 0;
-			while ((zx * zx + zy * zy < 4) && (count < MAXCOUNT))
-			{
-				tempx = zx * zx - zy * zy + cx;
-				zy = fractal_toggle * zx * zy + cy;
-				zx = tempx;
-				count += 1;
-			}
-			mlx_pixel_put(f->mlx, f->win, x, y, ((count * 10) << 16 | (count * 8) << 7 | (count * 4) << 4));
-			x++;
+			mlx_pixel_put(f->mlx, f->win, f->x, f->y, ((f->count * 10) << 16 | (f->count * 8) << 7 | (f->count * 4) << 4));
+			f->x++;
 		}
-		y++;
+		f->y++;
 	}
 }
 
@@ -86,13 +73,8 @@ void	draw_fractal(t_fract *f)
 
 int	launch_fractol(t_fract *f)
 {
-	if (initialize_graphic(f) == -1)
+	if (initialize (f) == -1)
 		return (-1);
-	f->left = (float)-1.75;
-	f->top = (float)-0.25;
-	f->xside = (float)0.25;
-	f->yside = (float)0.45;
-	f->increment = 1;
 	if (mlx_hook(f->win, 6, 1L << 6, motion, (void *)f) == -1)
 		return (-1);
 	if (mlx_mouse_hook(f->win, mousepress, f) == -1)
