@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 17:25:39 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:29:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define TRICORN 3				// Reference to running Tricorn.
 
 // Graphic window definitions.
-# define WINDOW 920				// Window resolution width
+# define WINDOW 860				// Window resolution width
 
 // Mac keyboard and mouse control definitions.
 # define TAB 48					// Mac TAB key.
@@ -55,24 +55,35 @@ typedef struct s_fract {
 	int		usage_lines;
 	void	*mlx;
 	void	*win;
-	float	xside;
-	float	yside;
+	float	x_side;
+	float	y_side;
 	float	left;
 	float	top;
 	float	increment;
-	float	cursor_x;
-	float	cursor_y;
+	float	x_scale;
+	float	y_scale;
+	float	z_x;
+	float	z_y;
+	float	c_x;
+	float	c_y;
+	float	temporary_x;
+	int		x;
+	int		y;
+	int		count;
+	int		fractal_toggle;
+	float	mouse_x;
+	float	mouse_y;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
 int		launch_fractol(t_fract *f);		// Runs the request to graphic view.
-int		initialize_graphic(t_fract *f);	// Graphic window initialization.
+int		initialize(t_fract *f);			// Sets graphic and necessary variables.
 void	draw_fractal(t_fract *f);		// Draws the fractal requested.
 void	write_strings(t_fract *f);		// Writes tool tips on the window.
 int		keypress(int key, void *param);	// Graphic window keyboard controls.
 int		mousepress(int key, int x, int y, void *param);	// Mouse zoom control.
 int		motion(int x, int y, void *param);				// Mouse motion control.
-float	scale(int value, float new_min, float new_max, float old_max);
+float	scale(int value, float n_min, float n_max, float o_max); // Normalize.
 size_t	ft_strlen(const char *s);		// Measures applied string length.
 int		ft_atoi(const char *str);		// 'AtoI', ASCII to integer converter.
 #endif
