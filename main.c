@@ -6,12 +6,21 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/24 17:45:27 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:51:49 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "the_uncontrolled_element_of_life.h"
 #define MAXCOUNT 30
+
+float scale(int value, float new_min, float new_max, float old_max)
+{
+	float old_min;
+
+	old_min = 0;
+
+	return ((new_max - new_min) * (value - old_min) / (old_max - old_min) + new_min);
+}
 
 // 'Mandelbrot()' function can run either the Mandelbrot set fractal, made
 // famous by Benoit Mandelbrot, working for IBM, in 1980, as well as the
@@ -29,28 +38,28 @@ void	mandelbrot(t_fract *f)
 	xscale = f->xside / WIDTH;
 	yscale = f->yside / HEIGHT;
 	y = 1;
+	if (f->request == 1)
+		fractal_toggle = 1;
+	else
+		fractal_toggle = -1;
 	while (y <= HEIGHT - 1)
 	{
 		x = 1;
 		while (x <= WIDTH - 1)
 		{
-			cx = (x * xscale + f->left) * f->increment;
-			cy = (y * yscale + f->top) * f->increment2;
+			cx = scale(x, -2, 2, WIDTH) * f->cx_increment + (float)0.38662;
+			cy = scale(y, -2, 2, HEIGHT) * f->cy_increment + (float)0.28;
 			zx = 0;
 			zy = 0;
 			count = 0;
 			while ((zx * zx + zy * zy < 4) && (count < MAXCOUNT))
 			{
-				if (f->request == 1)
-					fractal_toggle = 2;
-				else if (f->request == 3)
-					fractal_toggle = -2;
 				tempx = zx * zx - zy * zy + cx;
-				zy = fractal_toggle * zx * zy + cy;
+				zy = (2 * fractal_toggle) * zx * zy + cy;
 				zx = tempx;
 				count += 1;
 			}
-			mlx_pixel_put(f->mlx, f->win, x, y, count * 10);
+			mlx_pixel_put(f->mlx, f->win, x, y, ((count * 5) << 8) | (count * 7) << 16);
 			x++;
 		}
 		y++;
@@ -72,8 +81,8 @@ int	launch_fractol(t_fract *f)
 		f->top = (float)-0.25;
 		f->xside = (float)0.25;
 		f->yside = (float)0.45;
-		f->increment = 1;
-		f->increment2 = 1;
+		f->cx_increment = 1;
+		f->cy_increment = 1;
 		mandelbrot(f);
 	}
 	else if (f->request == JULIA)
