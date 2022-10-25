@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/24 17:26:45 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:32:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 // Graphic window definitions.
 # define WIDTH 640				// Window resolution width
-# define HEIGHT 480				// Window resolution height
+# define HEIGHT 640				// Window resolution height
 
 // Mac keyboard and mouse control definitions.
 # define TAB 48					// Mac TAB key.
@@ -62,8 +62,8 @@ typedef struct s_fract {
 	float	yside;
 	float	left;
 	float	top;
-	float	increment;
-	float	increment2;
+	float	cx_increment;
+	float	cy_increment;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
