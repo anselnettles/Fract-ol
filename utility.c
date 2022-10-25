@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:07:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/24 13:59:30 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:31:14 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ size_t	ft_strlen(const char *s)
 	while (s[len] != '\0')
 		len++;
 	return (len);
+}
+
+// A standard normalization function.
+
+float	scale(int value, float n_min, float n_max, float o_max)
+{
+	float	o_min;
+
+	o_min = 0;
+	return ((n_max - n_min) * (value - o_min) / (o_max - o_min) + n_min);
 }
 
 //	'Ft_AtoI()' (AtoI / ASCII to integer) converts the applied character number
