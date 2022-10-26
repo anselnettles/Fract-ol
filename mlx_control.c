@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 18:30:35 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:59:06 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	mousepress(int key, int x, int y, void *param)
 	if (x < 0 || y < 0 || x > WINDOW || y > WINDOW)
 		return (0);
 	if (key == ZOOM_IN)
-		f->increment /= (float)0.1;
+		f->increment *= (float)0.5;
 	if (key == ZOOM_OUT)
-		f->increment *= (float)0.1;
+		f->increment /= (float)0.5;
 	mlx_clear_window(f->mlx, f->win);
 	draw_fractal(f);
 	write_strings(f);
@@ -51,13 +51,10 @@ int	keypress(int key, void *param)
 	t_fract	*f;
 
 	f = (t_fract *)param;
-	if (key)
+	if (key == ESC)
 	{
-		if (key == ESC)
-		{
-			mlx_destroy_window(f->mlx, f->win);
-			exit (0);
-		}
+		mlx_destroy_window(f->mlx, f->win);
+		exit (0);
 	}
 	return (0);
 }
