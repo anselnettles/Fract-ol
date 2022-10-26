@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 18:26:56 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:55:53 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ void	request_adjust(t_fract *f)
 	}
 }
 
+// Bitwise operation for applying the fractal iteration ('count') to color.
+
+static int	color(t_fract *f)
+{
+	int	color;
+
+	color = ((f->count * 10) << 16 | (f->count * 8) << 7 | (f->count * 4) << 4);
+	return (color);
+}
+
 // 'Draw_fractal()' function can run either the Mandelbrot set fractal, made
 // famous by Benoit Mandelbrot, working for IBM, in 1980, the Tricorn fractal,
 // sometimes called the Mandelbar set, as introduced by
@@ -59,7 +69,7 @@ void	draw_fractal(t_fract *f)
 				f->z_x = f->temporary_x;
 				f->count += 1;
 			}
-			mlx_pixel_put(f->mlx, f->win, f->x, f->y, ((f->count * 10) << 16 | (f->count * 8) << 7 | (f->count * 4) << 4));
+			mlx_pixel_put(f->mlx, f->win, f->x, f->y, color(f));
 			f->x++;
 		}
 		f->y++;
@@ -81,7 +91,8 @@ int	launch_fractol(t_fract *f)
 		return (-1);
 	if (mlx_key_hook(f->win, keypress, f) == -1)
 		return (-1);
-	mlx_loop(f->mlx);
+	if (mlx_loop(f->mlx) == -1)
+		return (-1);
 	return (0);
 }
 
