@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/25 18:29:00 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/26 14:24:11 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@
 # define WINDOW 860				// Window resolution width
 
 // Mac keyboard and mouse control definitions.
-# define TAB 48					// Mac TAB key.
-# define ESC 53					// Mac ESC key.
-# define ZOOM_IN 4				// Mouse scroll in.
-# define ZOOM_OUT 5				// Mouse scroll out.
+# define MAC_ESC 53					// Mac ESC key.
+# define LINUX_ESC 65307			// Linux ESC key.
+# define MAC_ZOOM_IN 4				// Mac mouse scroll in.
+# define MAC_ZOOM_OUT 5				// Mac mouse scroll out.
+# define LINUX_ZOOM_IN 4			// Linux mouse scroll in.
+# define LINUX_ZOOM_OUT 5			// Linux mouse scroll out.
+# define MAC_CLICK 1				// Mac left click.
+# define LINUX_CLICK 1				// Linux left click.
 
 // Terminal output colors.
 # define T_GREY "\033[0;37m"	// Grey terminal color.
