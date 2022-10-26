@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/26 12:55:53 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:28:23 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,21 @@ void	request_adjust(t_fract *f)
 		f->z_x = 0;
 		f->z_y = 0;
 	}
+	if (f->request == TRICORN)
+		f->fractal_toggle = -2;
+	else
+		f->fractal_toggle = 2;
 }
 
 // Bitwise operation for applying the fractal iteration ('count') to color.
+// Count multiplied by 10 sets the highest color to red. Middle shades (* 8)
+// are bitwise folded to green-ish. And the lowest multiplier is set to blue.
 
 static int	color(t_fract *f)
 {
 	int	color;
 
-	color = ((f->count * 10) << 16 | (f->count * 8) << 7 | (f->count * 4) << 4);
+	color = ((f->count * 10) << 16 | (f->count * 8) << 5 | (f->count * 1) << 0);
 	return (color);
 }
 
@@ -49,6 +55,7 @@ static int	color(t_fract *f)
 // sometimes called the Mandelbar set, as introduced by
 // W.D. Crowe, R.Hasson, P.J. Rippon and P.E.D. Strain-Clark, in 1989, as well
 // as the Julia set fractal, named after the French mathematician Gaston Julia.
+// Defined 'MAX' is the maximum amount of iterations, set to 30.
 
 void	draw_fractal(t_fract *f)
 {
