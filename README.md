@@ -6,7 +6,7 @@ MiniLibraryX (MLX) is a 42School graphical library used in the graphics branch p
 
 # How to use.
 1. Compile the binary in the repository with command <i>make</i> 
-2. Apply argument as parameter when launching the program, representing a number (1 to 3) to a different fractal pattern.<i>./fractol \<number> </i>
+2. Apply argument as parameter when launching the program, representing a number (1 to 3) to a different fractal pattern. <i>./fractol \<number> </i>
 3. If your command is viable the graphical window should launch, otherwise you should get an error message in the standard output. <br><br> 
 <b>Controls for Mac and Linux:</b> <br> 
 • Moving the mouse pans the fractal image. This also further progresses the symmetry of the Julia fractal. <br>
@@ -19,5 +19,6 @@ As the program was initially planned for school computer use, the keyboard contr
 
 • Compatibility with different OS (with MiniLibraryX and keyboard controls). <br>
 • Further optimisation, to make the heavy mathematical iterations refresh more smoothly. <br>
+• Possibility to lock the aspect and position of the fractal, while, for example, zooming into it. <br>
 • Motion hooked to keyboard arrow keys (this is a bonus feature in the school subject file). <br>
 • Etc. <br>
