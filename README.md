@@ -15,6 +15,8 @@ MiniLibraryX (MLX) is a 42School graphical library used in the graphics branch p
 • Press `ESC` to quit the program. <br>
 As the program was initially planned for school computer use, the keyboard controls may not be hooked properly to other than MacOS.
 
+![fractol_gif](https://user-images.githubusercontent.com/70949716/198287690-2723592e-c629-4470-b57d-a921f660da7d.gif)
+
 # To do. | Future capacities.
 
 • Compatibility with different OS (with MiniLibraryX and keyboard controls). <br>
@@ -22,3 +24,4 @@ As the program was initially planned for school computer use, the keyboard contr
 • Possibility to lock the aspect and position of the fractal, while, for example, zooming into it. <br>
 • Motion hooked to keyboard arrow keys (this is a bonus feature in the school subject file). <br>
 • Etc. <br>
+
