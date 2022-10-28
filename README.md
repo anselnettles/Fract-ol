@@ -13,9 +13,10 @@ MiniLibraryX (MLX) is a 42School graphical library used in the graphics branch p
 • Clicking the mouse switches between the different fractal patterns. <br>
 • Scrolling the mouse wheel zooms in and out in the fractal, applying further iterations. <br>
 • Press `ESC` to quit the program. <br>
-As the program was initially planned for school computer use, the keyboard controls may not be hooked properly to other than MacOS.
+As the program was initially planned for school computer use, the keyboard controls may not be hooked properly to other than MacOS. <br>
 
-![fractol_gif](https://user-images.githubusercontent.com/70949716/198287690-2723592e-c629-4470-b57d-a921f660da7d.gif)
+![usage_clip](https://user-images.githubusercontent.com/70949716/198625816-1531ab30-34f6-4550-832f-e36da3854196.gif)<br><br>
+
 
 # To do. | Future capacities.
 
