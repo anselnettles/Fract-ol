@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/26 14:24:11 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:14:47 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <unistd.h>			// UNIX Standard library. ('write()')
 # include <stdlib.h>			// Standard library. ('size_t', 'NULL', 'exit')
 # include "mlx.h"				// MiniLibraryX graphics library.
+
+# define TRUE 1
+# define FALSE 1
 
 // Terminal definitions.
 # define MANDELBROT 1			// Reference to running Mandelbrot.
@@ -37,6 +40,8 @@
 # define LINUX_ZOOM_OUT 5			// Linux mouse scroll out.
 # define MAC_CLICK 1				// Mac left click.
 # define LINUX_CLICK 1				// Linux left click.
+# define MAC_RIGHT_CLICK 2
+# define LINUX_RIGHT_CLICK 2
 
 // Terminal output colors.
 # define T_GREY "\033[0;37m"	// Grey terminal color.
@@ -77,6 +82,7 @@ typedef struct s_fract {
 	int		fractal_toggle;
 	float	mouse_x;
 	float	mouse_y;
+	int		right_click;
 }	t_fract;
 
 int		main(int argc, char **argv);	// Main function.
