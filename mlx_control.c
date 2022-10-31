@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/26 15:01:02 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:34:00 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	mousepress(int key, int x, int y, void *param)
 		f->request++;
 	else if ((key == MAC_CLICK || key == LINUX_CLICK) && f->request == TRICORN)
 		f->request = MANDELBROT;
+	//if ((key == MAC_RIGHT_CLICK || key == LINUX_RIGHT_CLICK))
+	//		f->right_click = TRUE;
 	mlx_clear_window(f->mlx, f->win);
 	draw_fractal(f);
 	write_strings(f);
@@ -77,8 +79,11 @@ int	motion(int x, int y, void *param)
 	t_fract	*f;
 
 	f = (t_fract *)param;
-	f->mouse_x = scale(x, -2, 2, WINDOW);
-	f->mouse_y = scale(y, -2, 2, WINDOW);
+	//if (f->right_click != TRUE)
+	//{
+		f->mouse_x = scale(x, -2, 2, WINDOW);
+		f->mouse_y = scale(y, -2, 2, WINDOW);
+	//}
 	mlx_clear_window(f->mlx, f->win);
 	draw_fractal(f);
 	write_strings(f);
@@ -102,6 +107,7 @@ int	initialize(t_fract *f)
 	f->x_side = (float)0.25;
 	f->y_side = (float)0.45;
 	f->increment = 1;
+	f->right_click = FALSE;
 	draw_fractal(f);
 	write_strings(f);
 	return (0);
