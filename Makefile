@@ -6,7 +6,7 @@
 #    By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:04:55 by aviholai          #+#    #+#              #
-#    Updated: 2022/10/20 18:22:33 by aviholai         ###   ########.fr        #
+#    Updated: 2022/10/31 16:39:45 by aviholai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ $(NAME) : $(OBJ)
 	@printf "	$(PL)		${G}| following source files:				${PR}"
 	@printf "$(LISTSRC)"
 	@printf "	${PL}									${PR}"
-	@cc ${CLAGS} -I /usr/local/include ${OBJ} -L ${LIB} -o ${NAME}
+	@cc ${CLAGS} -I /minilibx ${OBJ} -L ${LIB} -o ${NAME}
 	@printf "	${PL}									${PR}"
 	@printf "	${PL}	${O}Ｆｉｎｉｓｈｅｄ ｂｉｎａｒｙ.					${PR}"
 	@printf "	${PL}		${G}| Executable '$(NAME)' compiled with 'cc'.		${PR}"
