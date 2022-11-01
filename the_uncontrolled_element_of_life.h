@@ -6,7 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:59:27 by aviholai          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/31 14:14:47 by aviholai         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/01 13:28:16 by aviholai         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +68,6 @@ typedef struct s_fract {
 	int		usage_lines;
 	void	*mlx;
 	void	*win;
-	float	x_side;
-	float	y_side;
-	float	left;
-	float	top;
 	float	increment;
 	float	x_scale;
 	float	y_scale;
