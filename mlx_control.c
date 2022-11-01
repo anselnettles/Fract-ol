@@ -6,7 +6,11 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:21:54 by aviholai          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/31 14:34:00 by aviholai         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/01 13:28:00 by aviholai         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +57,7 @@ int	mousepress(int key, int x, int y, void *param)
 	mlx_clear_window(f->mlx, f->win);
 	draw_fractal(f);
 	write_strings(f);
-	return (1);
+	return (0);
 }
 
 // ESC key for quitting the executable.
@@ -102,10 +106,6 @@ int	initialize(t_fract *f)
 			"Fract'ol | github.com/anselnettles");
 	if (!(f->win))
 		return (-1);
-	f->left = (float)-1.75;
-	f->top = (float)-0.25;
-	f->x_side = (float)0.25;
-	f->y_side = (float)0.45;
 	f->increment = 1;
 	f->right_click = FALSE;
 	draw_fractal(f);
