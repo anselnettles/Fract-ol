@@ -6,7 +6,7 @@
 /*   By: aviholai <aviholai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:57:05 by aviholai          #+#    #+#             */
-/*   Updated: 2022/10/26 15:28:23 by aviholai         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:26:03 by aviholai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // For the sake of reading clarity, the variables during 'draw_fractal()'
 // that have an adjust for the user request are set here.
 
-void	request_adjust(t_fract *f)
+static void	request_adjust(t_fract *f)
 {
 	if (f->request == JULIA)
 	{
@@ -59,11 +59,11 @@ static int	color(t_fract *f)
 
 void	draw_fractal(t_fract *f)
 {
-	f->y = 1;
-	while (f->y <= WINDOW - 1)
+	f->y = 0;
+	while (f->y < WINDOW)
 	{
-		f->x = 1;
-		while (f->x <= WINDOW - 1)
+		f->x = 0;
+		while (f->x < WINDOW)
 		{
 			f->c_x = scale(f->x, -2, 2, WINDOW) * f->increment;
 			f->c_y = scale(f->y, -2, 2, WINDOW) * f->increment;
@@ -90,7 +90,7 @@ void	draw_fractal(t_fract *f)
 
 int	launch_fractol(t_fract *f)
 {
-	if (initialize (f) == -1)
+	if (initialize(f) == -1)
 		return (-1);
 	if (mlx_hook(f->win, 6, 1L << 6, motion, (void *)f) == -1)
 		return (-1);
@@ -125,14 +125,14 @@ int	main(int argc, char **argv)
 		usage[3] = T_GREY "<" T_RED "2" T_GREY "> " T_0 "Julia | ";
 		usage[4] = T_GREY "<" T_RED "3" T_GREY "> " T_0 "Tricorn | \n";
 		while (++f.usage_lines <= 4)
-			write(1, usage[f.usage_lines], ft_strlen(usage[f.usage_lines]));
+			write(2, usage[f.usage_lines], ft_strlen(usage[f.usage_lines]));
 		return (-1);
 	}
 	if (launch_fractol(&f) == -1)
 	{
 		usage[0] = T_RED "ERROR: " T_0 "Launch_fractol() error. Run failure.";
 		while (++f.usage_lines <= 0)
-			write (1, usage[f.usage_lines], ft_strlen(usage[f.usage_lines]));
+			write (2, usage[f.usage_lines], ft_strlen(usage[f.usage_lines]));
 		return (-1);
 	}
 	return (0);
